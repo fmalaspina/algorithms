@@ -54,23 +54,29 @@ Write an efficient algorithm for the following assumptions:
 
 N and M are integers within the range [1..100,000];
 each element of array A is an integer within the range [1..N + 1].
+
+TESTED 100% AND WORKS FINE
  */
 public class MaxCounters   {
     public int[] solution(int N, int[] A) {
         // Implement your solution here
         int[] counters = new int[N];
         int max = 0;
+        int floor = 0;
         for (int i = 0; i < A.length; i++) {
             if (A[i] <= N) {
-                counters[A[i]-1]++;
-
-
-            } else {
-                for (int j = 0; j < counters.length; j++) {
-                    max = counters[j] > max ? counters[j] : max;
-
+                counters[A[i]-1] = Math.max(floor,counters[A[i]-1])+1;
+                if (counters[A[i]-1] > max) {
+                    max = counters[A[i]-1];
                 }
-                Arrays.fill(counters, max);
+            } else {
+                floor = max;
+            }
+
+        }
+        for (int i = 0; i < counters.length; i++) {
+            if (counters[i] < floor) {
+                counters[i] = floor;
             }
         }
         return counters;
