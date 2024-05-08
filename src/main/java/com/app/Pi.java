@@ -1,7 +1,10 @@
 package com.app;
 
-public class Pi {
-    /*
+
+import java.util.ArrayList;
+import java.util.List;
+
+/*
     We are given two strings P and Q, each consisting of N lowercase English letters. For each position in the strings, we have to choose one letter from either P or Q, in order to construct a new string S, such that the number of distinct letters in S is minimal. Our task is to find the number of distinct letters in the resulting string S.
 
     For example, if P = "ca" and Q = "ab", S can be equal to: "ca", "cb", "aa" or "ab". String "aa" has only one distinct letter ('a'), so the answer is 1 (which is minimal among those strings).
@@ -29,24 +32,23 @@ public class Pi {
     strings P and Q are made only of lowercase letters (a−z);
     strings P and Q contain a total of at most 20 distinct letters.
     */
+class Pi {
     public int solution(String P, String Q) {
         // Implement your solution here
-        int n = P.length();
-        int count = 0;
-        for (int i = 0; i < n; i++) {
-            if (P.charAt(i) != Q.charAt(i)) {
-                count++;
-                i++;
-            }
-        }
-        return count;
+
+        return 0;
+
     }
+
+    // a,b,b,c,c,d
+
 
     public static void main(String[] args) {
         Pi pi = new Pi();
-        String P = "amz";
-        String Q = "amz";
-        int result = pi.solution(P, Q);
-        System.out.println(result);
+        System.out.println(pi.solution("abc", "bcd")); // 2
+        System.out.println(pi.solution("axxz", "yzwy")); // 2
+        System.out.println(pi.solution("bacad", "abada")); // 1
+        System.out.println(pi.solution("amz", "amz")); // 3
     }
 }
+
