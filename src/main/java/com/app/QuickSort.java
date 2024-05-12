@@ -1,36 +1,39 @@
 package com.app;
 
-public class QuickSort {
-    public void quickSort(int[] arr, int low, int high) {
-        if (low < high) {
-            int pi = partition(arr, low, high);
-            quickSort(arr, low, pi - 1);
-            quickSort(arr, pi + 1, high);
-        }
-    }
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
-    private int partition(int[] arr, int low, int high) {
-        int pivot = arr[high];
-        int i = low - 1;
-        for (int j = low; j < high; j++) {
-            if (arr[j] < pivot) {
-                i++;
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-            }
+
+import static java.util.stream.Stream.concat;
+
+public class QuickSort {
+    public List<Integer> quickSort(List<Integer> arr) {
+        if (arr.size() < 2) return arr;
+        else {
+            int pivot = arr.getFirst();
+            List<Integer> less = arr.stream().filter(e -> e < pivot).toList();
+            List<Integer> greater = arr.stream().filter(e -> e > pivot).toList();
+            return concat(quickSort(less).stream(), concat(Stream.of(pivot), quickSort(greater).stream())).toList();
         }
-        int temp = arr[i + 1];
-        arr[i + 1] = arr[high];
-        arr[high] = temp;
-        return i + 1;
     }
 
     public static void main(String[] args) {
         QuickSort quickSort = new QuickSort();
         int[] arr = {10, 7, 8, 9, 1, 5};
-        quickSort.quickSort(arr, 0, arr.length - 1);
-        for (int i : arr) {
+        var res = quickSort.quickSort(Arrays.stream(arr).boxed().toList());
+        for (int i : res) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+        int[] arr2 = {};
+        var res2 = quickSort.quickSort(Arrays.stream(arr2).boxed().toList());
+        for (int i : res2) {
             System.out.print(i + " ");
         }
     }

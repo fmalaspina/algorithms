@@ -3,6 +3,8 @@ package com.app;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
+
 /*
 The Fibonacci sequence is defined using the following recursive formula:
 
@@ -59,50 +61,47 @@ N is an integer within the range [0..100,000];
 each element of array A is an integer that can have one of the following values: 0, 1.
  */
 public class FibFrog {
-    List<Integer> leafs = new ArrayList<Integer>();
     private int solution(int[] A) {
-        List<Integer> fib = new ArrayList<Integer>();
+        if (A.length == 0) {
+            return 1;
+        }
+        int currentPosition = 0;
+        int targetPosition = A.length-1;
+        int jumpCount = 0;
+        for (int i = A.length; i>0; i--) {
+            int jump = getFibonacci(i);
+            int nextPosition = currentPosition + jump;
 
-        for (int i = 0 ;; i++) {
-            if (i == 0) {
-                fib.add(0);
-            } else if (i <= 2) {
-                fib.add(1);
-            } else {
-                int next = fib.get(i-1) + fib.get(i - 2);
-                if (next > A.length) {
-                    break;
-                }
-
-                fib.add(next);
+            if (nextPosition == targetPosition) {
+                return jumpCount + 1;
+       //     } else if (nextPosition < targetPosition && leafs.contains(nextPosition)) {
+       //         jumpCount++;
+         //       currentPosition = nextPosition;
+         //       i = fib.size()-1;
             }
 
-        }
-        for (Integer f : fib) {
-            System.out.print(" " +f);
-        }
-        int currentPosition = -1;
-        int targetPosition = A.length;
-        for (int i = 0; i<A.length; i++) {
-            if (A[i] == 1) {
-                leafs.add(i);
             }
-        }
 
-        leafs.add(A.length);
-        System.out.println();
-        for (Integer leaf : leafs) {
-            System.out.print(" " + leaf);
-        }
-
-
-        return 0;
+        return -1;
     }
 
-
+    private int getFibonacci(int n) {
+        if (n == 0) {
+            return 0;
+        }
+        if (n == 1) {
+            return 1;
+        }
+        return getFibonacci(n-1) + getFibonacci(n-2);
+    }
     public static void main(String[] args) {
         FibFrog fibFrog = new FibFrog();
-        int[] A = {0,0,0,1,1,0,1,0,0,0,1};
-        fibFrog.solution(A);
+        //int[] A = {0,0,0,1,1,0,1,0,0,1,0};
+        //System.out.println(fibFrog.solution(A));
+        //int[] B = {0,0,0,0,0,0,0,0,0,0,0};
+        //System.out.println(fibFrog.solution(B));
+        //int[] C = {1};
+        //System.out.println(fibFrog.solution(C));
+
     }
 }
