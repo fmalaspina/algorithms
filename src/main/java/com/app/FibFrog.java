@@ -69,22 +69,18 @@ public class FibFrog {
             return 1;
         }
 
+        if (isFibonacci(A.length)) {
+            return 1;
+        }
         int currentPosition = -1;
         int targetPosition = A.length;
         int jumpCount = 0;
 
-        if (isFibonacci(A.length)) {
-            return 1;
-        }
-        for (int i = A.length-1; i>=0; i--) {
+        for (int i = A.length -1; i >= 0; i--) {
             if (A[i] == 1) {
-                if (isFibonacci(currentPosition + i)) {
-                    currentPosition = currentPosition + i;
+                if (isFibonacci(i +1) {
+                    currentPosition = i;
                     jumpCount++;
-                    if (currentPosition == targetPosition) {
-                        return jumpCount;
-                    }
-
                 }
             }
         }
