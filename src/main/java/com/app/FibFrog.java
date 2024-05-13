@@ -1,8 +1,6 @@
 package com.app;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.IntStream;
 
 /*
@@ -61,43 +59,70 @@ N is an integer within the range [0..100,000];
 each element of array A is an integer that can have one of the following values: 0, 1.
  */
 public class FibFrog {
+
+
     private int solution(int[] A) {
         if (A.length == 0) {
+            return -1;
+        }
+        if (A.length == 1) {
             return 1;
         }
-        int currentPosition = 0;
-        int targetPosition = A.length-1;
+
+        int currentPosition = -1;
+        int targetPosition = A.length;
         int jumpCount = 0;
-        for (int i = A.length; i>0; i--) {
-            int jump = getFibonacci(i);
-            int nextPosition = currentPosition + jump;
 
-            if (nextPosition == targetPosition) {
-                return jumpCount + 1;
-       //     } else if (nextPosition < targetPosition && leafs.contains(nextPosition)) {
-       //         jumpCount++;
-         //       currentPosition = nextPosition;
-         //       i = fib.size()-1;
-            }
-
-            }
-
-        return -1;
-    }
-
-    private int getFibonacci(int n) {
-        if (n == 0) {
-            return 0;
-        }
-        if (n == 1) {
+        if (isFibonacci(A.length)) {
             return 1;
         }
-        return getFibonacci(n-1) + getFibonacci(n-2);
+        for (int i = A.length-1; i>=0; i--) {
+            if (A[i] == 1) {
+                if (isFibonacci(currentPosition + i)) {
+                    currentPosition = currentPosition + i;
+                    jumpCount++;
+                    if (currentPosition == targetPosition) {
+                        return jumpCount;
+                    }
+
+                }
+            }
+        }
+        return jumpCount;
     }
+
+    static boolean isPerfectSquare(int x)
+    {
+        int s = (int) Math.sqrt(x);
+        return (s*s == x);
+    }
+    static boolean isFibonacci(int n)
+    {
+        // n is Fibonacci if one of 5*n*n + 4 or 5*n*n - 4 or both
+        // is a perfect square
+        return isPerfectSquare(5*n*n + 4) ||
+                isPerfectSquare(5*n*n - 4);
+    }
+
+
     public static void main(String[] args) {
         FibFrog fibFrog = new FibFrog();
-        //int[] A = {0,0,0,1,1,0,1,0,0,1,0};
-        //System.out.println(fibFrog.solution(A));
+
+        /*
+        A[0] = 0
+    A[1] = 0
+    A[2] = 0
+    A[3] = 1
+    A[4] = 1
+    A[5] = 0
+    A[6] = 1
+    A[7] = 0
+    A[8] = 0
+    A[9] = 0
+    A[10] = 0
+         */
+        int[] A = {0,0,0,1,1,0,1,0,0,0,0};
+        System.out.println(fibFrog.solution(A));
         //int[] B = {0,0,0,0,0,0,0,0,0,0,0};
         //System.out.println(fibFrog.solution(B));
         //int[] C = {1};
