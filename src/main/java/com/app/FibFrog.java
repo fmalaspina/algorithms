@@ -78,7 +78,7 @@ public class FibFrog {
 
         for (int i = A.length -1; i >= 0; i--) {
             if (A[i] == 1) {
-                if (isFibonacci(i +1) {
+                if (isFibonacci(i +1)) {
                     currentPosition = i;
                     jumpCount++;
                 }
