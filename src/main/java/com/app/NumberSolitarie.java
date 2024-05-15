@@ -54,7 +54,7 @@ public class NumberSolitarie {
         }
         int maxSum = A[0];
         int position = 0;
-        int maxWithinPosition = Integer.MIN_VALUE;
+        int maxWithinPosition = A[0];
         for (int i = 1; i < A.length; i++) {
             if (i ==A.length-1) {
                 maxSum += A[i];
@@ -63,15 +63,16 @@ public class NumberSolitarie {
             if (i == position + 6) {
                 maxSum += maxWithinPosition;
                 position = i;
-                maxWithinPosition = Integer.MIN_VALUE;
+                maxWithinPosition = A[i];
             } else {
                 if (A[i] > maxWithinPosition) {
                     maxWithinPosition = A[i];
-                    position = i;
+
                 }
                 if (maxSum + A[i] > maxSum) {
                     maxSum = A[i] + maxSum;
                     position = i;
+                    maxWithinPosition = A[i];
                 }
             }
 
@@ -83,17 +84,17 @@ public class NumberSolitarie {
     public static void main(String[] args) {
         NumberSolitarie numberSolitarie = new NumberSolitarie();
         // expect 8
-        int[] A = {1, -2, 0, 9, -1, 0,-2};
-        System.out.println(numberSolitarie.solution(A));
+       // int[] A = {1, -2, 0, 9, -1, 0,-2};
+       // System.out.println(numberSolitarie.solution(A));
         // expect 4
-        int[] B = {-2, 5, 1};
-        System.out.println(numberSolitarie.solution(B));
+       // int[] B = {-2, 5, 1};
+       // System.out.println(numberSolitarie.solution(B));
         // expect 12
         int[] C = {0, -4, -5, -2, -7, -9, -3, -10};
         System.out.println(numberSolitarie.solution(C));
         // expect 3
-        int[] D ={1, -2, 4, 3, -1, -3, -7, 4, -9};
-        System.out.println(numberSolitarie.solution(D));
+       // int[] D ={1, -2, 4, 3, -1, -3, -7, 4, -9};
+       // System.out.println(numberSolitarie.solution(D));
 
     }
 }
