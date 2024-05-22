@@ -48,37 +48,24 @@ each element of array A is an integer within the range [−10,000..10,000].
 
  */
 public class NumberSolitarie {
+    int bestMovesSum = 0;
     private int solution(int[] A) {
-        if (A.length==0) {
+        bestMovesSum = A[0] + A[A.length -1];
+        bestMovesSum += bestMoves(A,1, A.length - 2);
+        return bestMovesSum;
+
+    }
+
+    private int bestMoves(int[] A, int start, int end) {
+        if (start >= end) {
             return 0;
         }
-        int maxSum = A[0];
-        int position = 0;
-        int maxWithinPosition = A[0];
-        for (int i = 1; i < A.length; i++) {
-            if (i ==A.length-1) {
-                maxSum += A[i];
-                break;
-            }
-            if (i == position + 6) {
-                maxSum += maxWithinPosition;
-                position = i;
-                maxWithinPosition = A[i];
-            } else {
-                if (A[i] > maxWithinPosition) {
-                    maxWithinPosition = A[i];
+        int mid = end - start / 2;
+        int bestMove1 = bestMoves(A,start, mid);
+        int bestMove2= bestMoves(A,mid+1, end);
+        return bestMove1 + bestMove2;
 
-                }
-                if (maxSum + A[i] > maxSum) {
-                    maxSum = A[i] + maxSum;
-                    position = i;
-                    maxWithinPosition = A[i];
-                }
-            }
 
-        }
-
-        return maxSum;
 
     }
     public static void main(String[] args) {
